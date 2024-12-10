@@ -1,4 +1,4 @@
 /commons/node_modules
-/MEDIUM_BACKEND/node_modules
-/MEDIUM_FRONTEND/node_modules
-/MEDIUM_BACKEND/wrangler.toml
+/medium_backend/node_modules
+/medium_backend/node_modules
+/medium_frontend/wrangler.toml
