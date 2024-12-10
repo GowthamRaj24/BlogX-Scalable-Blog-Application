@@ -1,0 +1,9 @@
+.signup-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    width: 100vw;
+}
+
+.signup-main > * {
+    width: 100%;
+}
