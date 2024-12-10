@@ -1,9 +1,0 @@
-name = "medium_backend"
-main = "src/index.ts"
-compatibility_date = "2024-12-07"
-
-
-[vars]
-DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiNzBhMTA1MDQtZDI4Yy00NDJmLWFlNjYtOTE0YjZlOWI4NTRmIiwidGVuYW50X2lkIjoiYTJmMzVmOTdiNjIxZWU5YjAwYWY0MWI0OGM1Mjg4ZTJmYmY3NzY5NTczZmM3YjUwMTI5MzM1ZTY4MjcyOWM4YSIsImludGVybmFsX3NlY3JldCI6ImMxNzYzYmNmLWY1NDUtNGU5Zi05YzQ4LTcwZDdmOWJlZDVhNCJ9.QsAsfKgnJHvjB0BPmJPmwtR6V8DUrs8O7FFlztI6Fyg"
-DIRECT_URL = "postgres://avnadmin:AVNS_w9ffKSliakht8TKow9r@medium-mgowthamraj9491-bcad.i.aivencloud.com:24024/defaultdb?sslmode=require"
-JWT_SECRET = "123000"
