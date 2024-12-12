@@ -13,7 +13,7 @@ const Auth = (props: any) => {
             </div>
             <div className="all-auth-inputs">
                 {props.inputs.map((input: any) => {
-                    return <AuthInputs key={input} title={input} type={input} placeholder={"Enter your " + input} />
+                    return <AuthInputs key={input} title={input} type={input} placeholder={"Enter your " + input} setInput={props.setInput} inputValues={props.inputValues}/>
                 })}
             </div>
             <div className="signup-auth-button">
