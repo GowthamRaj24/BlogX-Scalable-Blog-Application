@@ -1,11 +1,29 @@
 import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
+import { BackendUrl } from "../../private/backend_url";
+
+
 
 const Blog = (props:any) => {
+    const [username , setUsername] = useState(props.blog ? props.blog.authorId : "Loading...");
 
-    
+    useEffect(()=>{
+        const fetchUsername = async () => {
+            await axios.post(BackendUrl + "/user" + "/idToUser", {id : username})
+            .then((res) => {
+                console.log(res);
+                setUsername(res);
+            })
+            .catch((err) => {
+                setUsername("Error fetching username");
+                console.warn(err.response.data);
+            })
+        }
+        fetchUsername();
+    } , [username]);
+
     return (<>
-
-
          {props.blog ? <article className="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
               <div className="flex justify-between items-center mb-5 text-gray-500">
                   <span className="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
@@ -15,12 +33,12 @@ const Blog = (props:any) => {
                   <span className="text-sm">{props.blog.date}</span>
               </div>
               <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">{props.blog.title}</a></h2>
-              <p className="mb-5 font-light text-gray-500 dark:text-gray-400">{props.blog.content +"..."}</p>
+              <p className="mb-5 font-light text-gray-500 dark:text-gray-400">{props.blog.content.slice(0,100) +"..."}</p>
               <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-4">
                       <img className="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Green avatar" />
                       <span className="font-medium dark:text-white">
-                          {props.blog.blogUsername}
+                          {username}
                       </span>
                   </div>
                   <a href="#" className="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">

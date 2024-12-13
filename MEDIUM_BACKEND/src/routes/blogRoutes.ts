@@ -137,7 +137,6 @@ blogRoutes.get(`/${api}/v1/blog/:id` , async (c)=> {
 })
 
 
-
 blogRoutes.get("/all" ,async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl : c.env.DATABASE_URL,
@@ -147,3 +146,4 @@ blogRoutes.get("/all" ,async (c) => {
 
     return c.json({blogs : blogs})
 })
+

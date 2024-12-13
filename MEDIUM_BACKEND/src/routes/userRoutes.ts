@@ -25,14 +25,13 @@ userRoutes.post(`/${api}/v1/signup` , async (c) => {
     }).$extends(withAccelerate());
   
     const body = await c.req.json();
-
     const success = signupInput.safeParse(body);
 
     if (! success){
         c.status(411)
         return c.json({error : "Inputs are not Correct"});
     }
-  
+
     const exists = await prisma.user.findFirst({
       where : {
         email : body.email
@@ -56,10 +55,65 @@ userRoutes.post(`/${api}/v1/signup` , async (c) => {
     c.status(200)
     return c.json({jwt : token,  message : "User Created for " + user.name});
 })
+
+userRoutes.post("/idToUser" , async (c) => {
+
+  const prisma = new PrismaClient({
+    datasourceUrl : c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const body = await c.req.json();
+
+  const user = await prisma.user.findFirst({
+    where : {
+      id : body.id
+    }
+  })
+
+  if (!user){
+    c.status(403)
+    return c.json({user : "User does not exist"});
+  }
+  c.status(200)
+  return c.json({user : user});
+})
+
+userRoutes.post("/JWTToUser", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const body = await c.req.json();
+  const token = body.token;
+
+  try {
+    const decoded = await verify(token, "123000") as { id: string };
+    const userId = decoded.id;
+
+    const user = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      c.status(403);
+      return c.json({ error: "User does not exist" });
+    }
+
+    c.status(200);
+    return c.json({ user: user });
+  } catch (error) {
+    c.status(403);
+    return c.json({ error: "Invalid token" });
+  }
+
+});
+
   
   
-  
-  
+
+
 userRoutes.post(`/${api}/v1/signin` ,async (c) => {
     const body = await c.req.json();
 

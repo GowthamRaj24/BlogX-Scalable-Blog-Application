@@ -1,20 +1,31 @@
+import axios from "axios";
 import Blog from "../components/Blog/Blog";
 import BlogHeader from "../components/BlogHeader/BlogHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { BackendUrl } from "../private/backend_url";
 
 const Blogs = () => {
 
+    const [Blogs, setBlogs] = useState([])
 
+    useEffect(() => {
+        const jwt = window.localStorage.getItem("jwt");
+        const fetchData = async () => {
+            await axios.get(BackendUrl + "/blog" + "/all", {
+                headers: {
+                    authorization: jwt
+                }
+            })
+            .then((res) => {
 
-
-    const [Blogs, setBlogs] = useState([{
-        title : "How to use React Query",
-        content : "React Query is a library that helps you fetch data from your server and cache it locally, so that you can use it in your React components. It is a great tool for managing your data fetching logic in React applications.",
-        blogUsername : "John Doe",
-        date : "10th October 2021"
-    }])
-
-
+                setBlogs(res.data.blogs)
+            })
+            .catch((err) => {
+                console.warn(err.response.data.error);
+            })
+        };
+        fetchData();
+    }, [])
 
     return(<>
     <BlogHeader/>
