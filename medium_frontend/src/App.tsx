@@ -3,6 +3,9 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Blogs from "./pages/Blogs";
 import Profile from "./pages/profile";
+import CreatePost from "./pages/createBlog";
+import EditPost from "./pages/modifyBlogs";
+import BlogPost from "./pages/BlogView";
 
 function App() {
 
@@ -12,8 +15,12 @@ function App() {
       <Routes>
         <Route path="/signin" element={<Signin/>}/>
         <Route path="/signup" element={<Signup/>} />
-        <Route path="/blog" element={<Blogs/>} />
+        <Route path="/blogs" element={<Blogs/>} />
         <Route path="/profile" element={<Profile/>} />
+        <Route path="/blog/create" element={<CreatePost />} />
+        <Route path="/blog/edit/:id" element={<EditPost />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
+
       </Routes>
     </BrowserRouter>
 

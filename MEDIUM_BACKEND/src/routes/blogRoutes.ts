@@ -39,7 +39,7 @@ blogRoutes.use("/*", async (c, next) => {
 
 
 
-blogRoutes.post(`${api}/v1/blog` , async (c) =>{
+blogRoutes.post(`${api}/v1/createBlog` , async (c) =>{
 
     const prisma = new PrismaClient({
         datasourceUrl : c.env.DATABASE_URL,
@@ -74,7 +74,47 @@ blogRoutes.post(`${api}/v1/blog` , async (c) =>{
     }
 })
 
-blogRoutes.get(`/${api}/v1/blog/:id` , async (c)=> {
+// Add this to your existing blogRoutes
+
+blogRoutes.delete(`/${api}/v1/blog/:id`, async (c) => {
+    const blogId = c.req.param("id");
+    const userId = c.get("userId");
+
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    try {
+        // First check if the blog belongs to the user
+        const blog = await prisma.post.findFirst({
+            where: {
+                id: blogId,
+                authorId: userId
+            }
+        });
+
+        if (!blog) {
+            c.status(403);
+            return c.json({ error: "Not authorized to delete this blog" });
+        }
+
+        // Delete the blog
+        await prisma.post.delete({
+            where: {
+                id: blogId
+            }
+        });
+
+        c.status(200);
+        return c.json({ message: "Blog deleted successfully" });
+    } catch (e) {
+        c.status(500);
+        return c.json({ error: "Error deleting blog" });
+    }
+});
+
+
+blogRoutes.get(`/${api}/v1/viewblog/:id` , async (c)=> {
     const blogId =  c.req.param("id");
     const prisma = new PrismaClient({
         datasourceUrl : c.env.DATABASE_URL,
@@ -90,7 +130,7 @@ blogRoutes.get(`/${api}/v1/blog/:id` , async (c)=> {
 })
 
 
-blogRoutes.put(`/${api}/v1/blog` , async (c) => {
+blogRoutes.put(`/${api}/v1/updateBlog` , async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl : c.env.DATABASE_URL,
     }).$extends(withAccelerate());
