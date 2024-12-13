@@ -7,3 +7,16 @@
 .signup-main > * {
     width: 100%;
 }
+
+.signup-main-outer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+@media all and (max-width: 768px) {
+    .signup-main {
+        display: block;
+    }
+}

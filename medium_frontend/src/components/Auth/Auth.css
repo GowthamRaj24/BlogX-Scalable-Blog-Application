@@ -1,0 +1,31 @@
+.outer-auth{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.auth-heading{
+    font-size: 30px;
+    font-weight: 700;
+
+}
+
+.auth-subheading{
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(114, 111, 111);
+}
+
+.auth-link{
+    text-decoration: underline;
+}
+
+.signup-auth-button{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: 25vw;
+}

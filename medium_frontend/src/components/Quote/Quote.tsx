@@ -13,7 +13,7 @@ const Quote = () => {
             </div>
             <div className="quote-developer">
                 <div className="image-developer">
-                    Hello
+                    Developed By:
                 </div>
                 <div className="description-developer">
                     Gowtham Raju
