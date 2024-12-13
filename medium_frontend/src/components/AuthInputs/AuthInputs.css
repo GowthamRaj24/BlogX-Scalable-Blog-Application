@@ -24,3 +24,10 @@
     font-size: 1em;
     width: 100%;
 }
+
+
+@media all and (max-width: 768px) {
+    .outer-auth-inputs {
+        width: 80vw;
+    }
+}
