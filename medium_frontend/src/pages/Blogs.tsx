@@ -12,6 +12,11 @@ interface BlogPost {
   authorId: string;
 }
 
+interface BlogStats {
+    totalBlogs: number;
+    totalUsers: number;
+  }
+
 const Blogs = () => {
     const [blogs, setBlogs] = useState<BlogPost[]>([]);
     const [filteredBlogs, setFilteredBlogs] = useState<BlogPost[]>([]);
@@ -19,6 +24,30 @@ const Blogs = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const blogsPerPage = 6;
+
+    const [stats, setStats] = useState<BlogStats>({ totalBlogs: 0, totalUsers: 0 });
+
+    // Add this to your existing useEffect
+    useEffect(() => {
+        fetchBlogs();
+        fetchStats();
+    }, []);
+
+    // Add this new function
+    const fetchStats = async () => {
+        const jwt = localStorage.getItem("jwt");
+        try {
+            const response = await axios.get(`${BackendUrl}/blog/api/v1/stats`, {
+                headers: {
+                    authorization: jwt
+                }
+            });
+            setStats(response.data);
+        } catch (error) {
+            console.warn("Error fetching stats:", error);
+        }
+    };
+
 
     useEffect(() => {
         fetchBlogs();
@@ -72,12 +101,30 @@ const Blogs = () => {
             <div className="relative overflow-hidden py-16 sm:py-24">
                 <div className="mx-auto max-w-4xl px-6 lg:px-8">
                     <div className="text-center">
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                            Discover Amazing Stories
-                        </h1>
-                        <p className="mt-6 text-lg leading-8 text-gray-600">
-                            {filteredBlogs.length} articles available
-                        </p>
+                    <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Discover Amazing Stories
+            </h1>
+            <div className="mt-6 flex justify-center gap-8">
+    <div className="text-center">
+        <span className="block text-3xl font-bold text-blue-600">
+            {filteredBlogs.length}
+        </span>
+        <span className="text-gray-600 font-medium">
+            {stats.totalBlogs === 1  || stats.totalBlogs === 0 ? "Article" : "Articles"} Available
+        </span>
+    </div>
+    <div className="w-px bg-gray-200"></div>
+    <div className="text-center">
+        <span className="block text-3xl font-bold text-purple-600">
+            {stats.totalUsers}
+        </span>
+        <span className="text-gray-600 font-medium">
+            Community Members
+        </span>
+    </div>
+</div>
+
+                       
                         <div className="mt-10 flex items-center justify-center gap-x-6">
                             <div className="relative group">
                                 <input
