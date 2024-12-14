@@ -1,5 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import BlogHeader from '../components/BlogHeader/BlogHeader';
+import pictureGowtham from '../assets/picture_gowtham.jpg';
+
 
 
 import { FaGithub, FaInstagram, FaGlobe } from 'react-icons/fa';
@@ -67,9 +69,9 @@ const DeveloperSection = () => {
                             <div className="md:w-1/3">
                                 <div className="sticky top-24">
                                     <img 
-                                        src="../assets/picture_gowtham.jgp"
+                                        src={pictureGowtham}
                                         alt="Gowtham Raj"
-                                        className="w-48 h-48 rounded-2xl shadow-2xl mx-auto mb-6"
+                                        className="w-48 h-48 rounded-2xl shadow-2xl mx-auto mb-6 object-cover"
                                     />
                                     <h3 className="text-3xl font-bold text-center mb-2">Gowtham Raj</h3>
                                     <p className="text-gray-600 text-center mb-6">Full Stack Developer | ML Engineer</p>
@@ -113,16 +115,7 @@ const DeveloperSection = () => {
                                         ))}
                                     </div>
 
-                                    <h4 className="text-2xl font-bold mt-8 mb-4">Current Project</h4>
-                                    <div className="bg-gray-50 p-6 rounded-xl">
-                                        <h5 className="text-xl font-bold mb-2">Blog:X</h5>
-                                        <p className="text-gray-700">
-                                            A modern blogging platform built with cutting-edge technologies.
-                                            Features serverless architecture using Cloudflare Workers, 
-                                            type-safe database operations with Prisma, and a responsive 
-                                            React frontend.
-                                        </p>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -160,7 +153,7 @@ const About = () => {
             {/* Tech Stack Section */}
             <section className="py-20 px-4">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-4xl font-bold text-center mb-12">Our Tech Stack</h2>
+                    <h2 className="text-4xl font-bold text-center mb-12">Tech Stack Used</h2>
                     <div className="grid md:grid-cols-2 gap-8">
                         <motion.div 
                             initial={{ opacity: 0, y: 20 }}
@@ -171,7 +164,7 @@ const About = () => {
                             <ul className="space-y-2">
                                 <li>⚛️ React with TypeScript</li>
                                 <li>🎨 TailwindCSS for styling</li>
-                                <li>🔄 React Router for navigation</li>
+                                <li>🔄 Netlify for Deployement</li>
                                 <li>✨ Framer Motion for animations</li>
                             </ul>
                         </motion.div>
