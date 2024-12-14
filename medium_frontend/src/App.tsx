@@ -8,6 +8,7 @@ import EditPost from "./pages/modifyBlogs";
 import BlogPost from "./pages/BlogView";
 import About from "./pages/about";
 import ForgotPassword from "./pages/forgotPassword";
+import Dashboard from "./pages/dashboard";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/about" element={<About />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/" element={<Dashboard />} />
 
       </Routes>
     </BrowserRouter>

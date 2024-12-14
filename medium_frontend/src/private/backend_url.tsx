@@ -1,2 +1,2 @@
-export const BackendUrl = "http://127.0.0.1:8787"
+export const BackendUrl = " https://medium_backend.gowthamraj24n.workers.dev"
 export const extentionUrl = "/api/v1"

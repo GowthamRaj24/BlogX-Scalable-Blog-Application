@@ -14,9 +14,15 @@ const app = new Hono<{
 }>
 ();
 
+
 app.use(cors({
   origin : "*"
 }));
+
+app.use("/*" , async (c , next) => {
+  console.log("Request Received");
+  await next();
+});
 
 
 app.route("/user" , userRoutes);
