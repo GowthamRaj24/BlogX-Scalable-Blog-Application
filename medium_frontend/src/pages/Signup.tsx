@@ -35,7 +35,7 @@ const Signup = () => {
         try {
             const res = await axios.post(`${BackendUrl}/user${extentionUrl}/signup`, input);
             localStorage.setItem("jwt", res.data.jwt);
-            window.location.href = "/home";
+            window.location.href = "/blogs";
         } catch (err: any) {
             setError(err.response?.data?.error || "Sign up failed. Please try again.");
         } finally {

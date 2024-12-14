@@ -157,7 +157,7 @@ const EditPost = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   type="button"
-                  onClick={() => navigate('/blog')}
+                  onClick={() => navigate('/blogs')}
                   className="px-8 py-4 rounded-xl text-gray-700 font-semibold text-lg bg-gray-100 hover:bg-gray-200 transition-all duration-300"
                 >
                   Cancel
