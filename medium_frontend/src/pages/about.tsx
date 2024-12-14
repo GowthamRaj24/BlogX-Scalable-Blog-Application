@@ -1,8 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import BlogHeader from '../components/BlogHeader/BlogHeader';
-import pictureGowtham from '../assets/picture_gowtham.jpg';
-
-
 
 import { FaGithub, FaInstagram, FaGlobe } from 'react-icons/fa';
 import { 
@@ -11,6 +8,7 @@ import {
     SiTailwindcss, SiPython, SiTensorflow, SiOpenai,
     SiLeetcode
 } from 'react-icons/si';
+
 
 const DeveloperSection = () => {
     const techStacks = [
@@ -69,7 +67,7 @@ const DeveloperSection = () => {
                             <div className="md:w-1/3">
                                 <div className="sticky top-24">
                                     <img 
-                                        src={pictureGowtham}
+                                        src={"./assets/picture_gowtham.jpg"}
                                         alt="Gowtham Raj"
                                         className="w-48 h-48 rounded-2xl shadow-2xl mx-auto mb-6 object-cover"
                                     />
