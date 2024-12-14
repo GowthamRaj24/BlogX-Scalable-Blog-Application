@@ -18,7 +18,7 @@ const Signin = () => {
             await axios.post(BackendUrl + "/user" + extentionUrl + "/signin" , input)
             .then((res) => {
                 window.localStorage.setItem("jwt" , res.data.jwt)
-                window.location.href = "/blog"
+                window.location.href = "/blogs"
             })
             .catch((err) => {
                 console.warn(err.response.data.error);

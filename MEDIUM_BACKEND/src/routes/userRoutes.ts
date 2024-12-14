@@ -18,6 +18,8 @@ export const userRoutes = new Hono<{
   
 const api = "api"
 
+
+
 userRoutes.post(`/${api}/v1/signup` , async (c) => {
 
     const prisma = new PrismaClient({
@@ -108,6 +110,28 @@ userRoutes.post("/JWTToUser", async (c) => {
     return c.json({ error: "Invalid token" });
   }
 
+});
+
+
+userRoutes.post(`/${api}/v1/reset-password`, async (c) => {
+  const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const { email, newPassword } = await c.req.json();
+
+  try {
+      const user = await prisma.user.update({
+          where: { email },
+          data: { password: newPassword }
+      });
+
+      c.status(200);
+      return c.json({ message: "Password updated successfully" });
+  } catch (error) {
+      c.status(500);
+      return c.json({ error: "Error updating password" });
+  }
 });
 
   

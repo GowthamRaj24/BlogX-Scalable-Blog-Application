@@ -114,67 +114,113 @@ blogRoutes.delete(`/${api}/v1/blog/:id`, async (c) => {
 });
 
 
-blogRoutes.get(`/${api}/v1/viewblog/:id` , async (c)=> {
-    const blogId =  c.req.param("id");
+blogRoutes.get(`/${api}/v1/viewblog/:id`, async (c) => {
+    const blogId = c.req.param("id");
     const prisma = new PrismaClient({
-        datasourceUrl : c.env.DATABASE_URL,
+        datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const body = await c.req.json();
-    const blog = await prisma.post.findFirst({
-        where : {
-            id : blogId
+    // Remove this line as GET requests don't have a body
+    // const body = await c.req.json();
+
+    try {
+        const blog = await prisma.post.findFirst({
+            where: {
+                id: blogId
+            }
+        });
+
+        if (!blog) {
+            c.status(404);
+            return c.json({ error: "Blog not found" });
         }
-    })
-    return c.json({blogs : blog})
-})
+
+        return c.json({ blogs: blog });
+    } catch (error) {
+        c.status(500);
+        return c.json({ error: "Error fetching blog" });
+    }
+});
 
 
-blogRoutes.put(`/${api}/v1/updateBlog` , async (c) => {
+
+blogRoutes.put(`/${api}/v1/updateBlog`, async (c) => {
     const prisma = new PrismaClient({
-        datasourceUrl : c.env.DATABASE_URL,
+        datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
+    const userId = c.get("userId");
     const body = await c.req.json();
     const success = updateBlogInput.safeParse(body);
 
     if (!success) {
-        c.status(411)
-        return c.json({error : "Inputs are not Correct"})
+        c.status(411);
+        return c.json({ error: "Inputs are not Correct" });
     }
 
-    try{
-        const blog = await prisma.post.update({
-            where : {
-                id : body.id
-            },
-            data : {
-                title : body.title,
-                content : body.content
+    try {
+        // First verify if the user owns this blog
+        const existingBlog = await prisma.post.findFirst({
+            where: {
+                id: body.id,
+                authorId: userId
             }
-        })
-        c.status(200)
-        return c.json({blogId : blog.id , message : "Updated a blog"})
-    }
-    catch(e){
-        return c.json({error : e})
-    }
-})
+        });
 
-blogRoutes.get(`/${api}/v1/blog/:id` , async (c)=> {
-    const blogId =  c.req.param("id");
+        if (!existingBlog) {
+            c.status(403);
+            return c.json({ error: "Not authorized to update this blog" });
+        }
+
+        const blog = await prisma.post.update({
+            where: {
+                id: body.id
+            },
+            data: {
+                title: body.title,
+                content: body.content
+            }
+        });
+
+        c.status(200);
+        return c.json({ 
+            blogId: blog.id, 
+            message: "Blog updated successfully",
+            blog: blog 
+        });
+    } catch (e) {
+        c.status(500);
+        return c.json({ error: "Error updating blog" });
+    }
+});
+
+
+blogRoutes.get(`/${api}/v1/blog/:id`, async (c) => {
+    const blogId = c.req.param("id");
     const prisma = new PrismaClient({
-        datasourceUrl : c.env.DATABASE_URL,
+        datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const body = await c.req.json();
-    const blog = await prisma.post.findFirst({
-        where : {
-            id : blogId
+    try {
+        const blog = await prisma.post.findUnique({
+            where: {
+                id: blogId
+            }
+        });
+
+        if (!blog) {
+            c.status(404);
+            return c.json({ error: "Blog not found" });
         }
-    })
-    return c.json({blogs : blog})
-})
+
+        return c.json({ blogs: blog });
+    } catch (error) {
+        console.error("Error fetching blog:", error);
+        c.status(500);
+        return c.json({ error: "Error fetching blog" });
+    }
+});
+
 
 
 blogRoutes.get("/all" ,async (c) => {

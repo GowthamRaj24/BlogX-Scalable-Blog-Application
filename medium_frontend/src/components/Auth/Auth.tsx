@@ -12,6 +12,10 @@ const Auth = (props: any) => {
         }
     }
 
+    const handleForgotPassword = () => {
+        window.location.href = "/forgot-password";
+    }
+
     return (
         <div className="outer-auth">
             <div className="auth-heading">
@@ -29,7 +33,7 @@ const Auth = (props: any) => {
                 <Button title={props.page === "signup" ? "Sign Up" : "Login"} onSubmit={props.onSubmit}/>
                 {props.page === "signup" ? 
                 null : 
-                <Button title="Forgot Password?" />
+                <Button title="Forgot Password?" onSubmit={handleForgotPassword}/>
                 }
             </div>
         </div>

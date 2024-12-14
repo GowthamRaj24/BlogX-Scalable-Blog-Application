@@ -6,6 +6,8 @@ import Profile from "./pages/profile";
 import CreatePost from "./pages/createBlog";
 import EditPost from "./pages/modifyBlogs";
 import BlogPost from "./pages/BlogView";
+import About from "./pages/about";
+import ForgotPassword from "./pages/forgotPassword";
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
         <Route path="/blog/create" element={<CreatePost />} />
         <Route path="/blog/edit/:id" element={<EditPost />} />
         <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
       </Routes>
     </BrowserRouter>
