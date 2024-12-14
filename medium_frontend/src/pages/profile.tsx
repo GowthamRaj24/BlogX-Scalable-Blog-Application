@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import Blog from '../components/Blog/Blog';
 import BlogHeader from '../components/BlogHeader/BlogHeader';
 import axios from 'axios';
