@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BackendUrl, extentionUrl } from '../private/backend_url';
+import { BackendUrl } from '../private/backend_url';
 import { motion } from 'framer-motion';
 import BlogHeader from '../components/BlogHeader/BlogHeader';
 import axios from 'axios';
