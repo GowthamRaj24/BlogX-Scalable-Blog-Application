@@ -14,9 +14,9 @@
 - Secure password handling
 
 ### 📝 Rich Content Management
-- Create, edit, and delete blog posts
-- Rich text editor
-- Real-time content preview
+- Create, edit, and delete blog posts,
+- Rich text editor,
+- Real-time content preview.
 
 ### 🔍 Advanced Search
 - Full-text search capability
